@@ -16,6 +16,6 @@ def run_my_flow(param: str) -> None:
 @flow(log_prints=True)
 def main(name: str = "world", goodbye: bool = False):
     print(f"Hello {name} from Prefect! 🤗")
-
+    run_my_flow(name)
     if goodbye:
         print(f"Goodbye {name}!")
