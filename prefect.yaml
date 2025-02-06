@@ -1,0 +1,39 @@
+# Welcome to your prefect.yaml file! You can use this file for storing and managing
+# configuration for deploying your flows. We recommend committing this file to source
+# control along with your flow code.
+
+# Generic metadata about this project
+name: prefect-modal
+prefect-version: 3.1.15
+
+# build section allows you to manage and build docker images
+build:
+
+# push section allows you to manage if and how this project is uploaded to remote locations
+push:
+
+# pull section allows you to provide instructions for cloning this project in remote locations
+pull:
+- prefect.deployments.steps.git_clone:
+    repository: https://github.com/Ben-Epstein/prefect-modal
+    branch: main
+    credentials: '{{ prefect.blocks.github-credentials.grotto-exploration-pull }}'
+
+# the deployments section allows you to provide configuration for deploying flows
+deployments:
+- name: prefect-modal-example
+  version:
+  tags: []
+  description: Our first flow which runs on modal
+  entrypoint: src/prefect_modal/flows/flow1.py:main
+  schedules:
+  - cron: 0 12 * * *
+    timezone: America/New_York
+    day_or: true
+    active: true
+  work_pool:
+    name: pref-modal-pool
+    work_queue_name: default
+    job_variables: {}
+  concurrency_limit:
+  parameters: {}

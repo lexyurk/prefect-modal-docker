@@ -1,0 +1,17 @@
+[project]
+name = "prefect-modal"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { email = "ben.epstein97@gmail.com" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "modal>=0.73.16",
+    "prefect[github]>=3.1.15",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
