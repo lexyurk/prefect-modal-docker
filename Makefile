@@ -2,7 +2,7 @@ export PYTHONPATH = .venv
 
 .PHONY: uv
 uv:
-	curl -LsSf https://astral.sh/uv/0.5.29/install.sh | sh
+	pip install --upgrade 'uv>=0.5.6,<0.6'
 	uv venv
 
 setup:
