@@ -16,7 +16,7 @@ push:
 pull:
 - prefect.deployments.steps.git_clone:
     id: clone-step
-    repository: https://github.com/Ben-Epstein/prefect-modal
+    repository: https://github.com/lexyurk/prefect-modal-docker
     branch: main
     credentials: '{{ prefect.blocks.github-credentials.prefect-modal }}'
 - prefect.deployments.steps.run_shell_script:
@@ -27,16 +27,11 @@ pull:
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name: prefect-modal-example
+- name: my-modal-pool
   version:
   tags: []
   description: Our first flow which runs on modal
   entrypoint: src/prefect_modal/flows/flow1.py:main
-  schedules:
-  - cron: 0 12 * * *
-    timezone: America/New_York
-    day_or: true
-    active: true
   work_pool:
     name: pref-modal-pool
     work_queue_name: default
