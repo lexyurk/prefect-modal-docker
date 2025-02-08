@@ -14,16 +14,8 @@ push:
 
 # pull section allows you to provide instructions for cloning this project in remote locations
 pull:
-- prefect.deployments.steps.git_clone:
-    id: clone-step
-    repository: https://github.com/lexyurk/prefect-modal-docker
-    branch: main
-    credentials: '{{ prefect.blocks.github-credentials.prefect-modal }}'
-- prefect.deployments.steps.run_shell_script:
-    directory: '{{ clone-step.directory }}'
-    script: make setup
 - prefect.deployments.steps.set_working_directory:
-    directory: '/{{ clone-step.directory }}'
+    directory: '/app'
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
@@ -34,7 +26,9 @@ deployments:
   entrypoint: src/prefect_modal/flows/flow1.py:main
   work_pool:
     name: my-modal-pool
-    work_queue_name: default
-    job_variables: {}
+    job_variables:
+      image:
+        tag: "{{ build_image.image_name }}:{{ build_image.tag }}"
+        gcp_secret: gcp-secret
   concurrency_limit:
   parameters: {}

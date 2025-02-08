@@ -39,14 +39,21 @@ jobs:
 
       - name: Build and Push Image
         run: |
-          docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:${{ github.sha }} .
-          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:${{ github.sha }}
-          docker tag $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:${{ github.sha }} $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:latest
-          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:latest
-
+          IMAGE_NAME=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow
+          docker build -t $IMAGE_NAME:${{ github.sha }} .
+          docker push $IMAGE_NAME:${{ github.sha }}
+          docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
+          docker push $IMAGE_NAME:latest
+   
+      - name: Install yq
+        run: |
+          sudo wget -qO /usr/local/bin/yq https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64
+          sudo chmod a+x /usr/local/bin/yq
+      
       - name: Prefect Deploy
         env:
           PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
+          yq -i '.deployments[0].work_pool.job_variables.image.tag = "$IMAGE_NAME:${{ github.sha }}"' prefect.yaml
           make prefect-deploy
