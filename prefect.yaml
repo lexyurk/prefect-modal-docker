@@ -27,13 +27,13 @@ pull:
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name: my-modal-pool
+- name: prefect-modal
   version:
   tags: []
   description: Our first flow which runs on modal
   entrypoint: src/prefect_modal/flows/flow1.py:main
   work_pool:
-    name: pref-modal-pool
+    name: my-modal-pool
     work_queue_name: default
     job_variables: {}
   concurrency_limit:
