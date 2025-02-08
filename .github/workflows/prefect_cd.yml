@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  IMAGE_NAME: prefect-flow
+  REPOSITORY: ${{ secrets.REPOSITORY }}
   REGION: europe-central2
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
 
@@ -39,10 +39,10 @@ jobs:
 
       - name: Build and Push Image
         run: |
-          docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$IMAGE_NAME/flow:${{ github.sha }} .
-          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$IMAGE_NAME/flow:${{ github.sha }}
-          docker tag $REGION-docker.pkg.dev/$PROJECT_ID/$IMAGE_NAME/flow:${{ github.sha }} $REGION-docker.pkg.dev/$PROJECT_ID/$IMAGE_NAME/flow:latest
-          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$IMAGE_NAME/flow:latest
+          docker build -t $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:${{ github.sha }} .
+          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:${{ github.sha }}
+          docker tag $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:${{ github.sha }} $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:latest
+          docker push $REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow:latest
 
       - name: Prefect Deploy
         env:
