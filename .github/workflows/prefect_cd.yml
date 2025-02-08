@@ -55,5 +55,6 @@ jobs:
           PREFECT_API_KEY: ${{ secrets.PREFECT_API_KEY }}
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
-          yq -i '.deployments[0].work_pool.job_variables.image.tag = "$IMAGE_NAME:${{ github.sha }}"' prefect.yaml
+          IMAGE_NAME=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow
+          yq -i '.deployments[0].work_pool.job_variables.image.tag = "'$IMAGE_NAME:${{ github.sha }}'"' prefect.yaml
           make prefect-deploy
