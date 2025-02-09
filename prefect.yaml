@@ -38,3 +38,16 @@ deployments:
         gcp_secret: gcp-secret
   concurrency_limit:
   parameters: {}
+- name: prefect-modal-no-pydantic
+  version:
+  tags: []
+  description: Our first flow which runs on modal
+  entrypoint: src/prefect_modal/flows/flow1.py:test_flow_no_pydantic
+  work_pool:
+    name: my-modal-pool
+    job_variables:
+      image:
+        tag: "{{ build_image.image_name }}:{{ build_image.tag }}"
+        gcp_secret: gcp-secret
+  concurrency_limit:
+  parameters: {}
