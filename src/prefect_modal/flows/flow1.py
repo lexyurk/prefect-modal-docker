@@ -28,11 +28,3 @@ def test_flow(args: MyModel):
     if args.goodbye:
         print(f"Goodbye {args.name}!")
 
-
-@flow(log_prints=True, name="test_flow_no_pydantic")
-def test_flow_no_pydantic(name: str, goodbye: bool = False):
-    print(f"Hello {name} from Prefect! 🤗")
-    run_my_flow(name)
-    print(f"pydantic version: {pydantic.__version__}")
-    if goodbye:
-        print(f"Goodbye {name}!")

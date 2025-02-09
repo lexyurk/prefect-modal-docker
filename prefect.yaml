@@ -42,7 +42,7 @@ deployments:
   version:
   tags: []
   description: Our first flow which runs on modal
-  entrypoint: src/prefect_modal/flows/flow1.py:test_flow_no_pydantic
+  entrypoint: src/prefect_modal/flows/flow2.py:test_flow_no_pydantic
   work_pool:
     name: my-modal-pool
     job_variables:
