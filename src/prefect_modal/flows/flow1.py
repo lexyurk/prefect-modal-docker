@@ -1,5 +1,11 @@
 from prefect import flow, task
 import pydantic
+from pydantic import BaseModel
+
+
+class MyModel(BaseModel):
+    name: str
+    goodbye: bool = False
 
 
 @task()
@@ -15,9 +21,9 @@ def run_my_flow(param: str) -> None:
 
 
 @flow(log_prints=True)
-def main(name: str = "world", goodbye: bool = False):
-    print(f"Hello {name} from Prefect! 🤗")
-    run_my_flow(name)
+def main(args: MyModel):
+    print(f"Hello {args.name} from Prefect! 🤗")
+    run_my_flow(args.name)
     print(f"pydantic version: {pydantic.__version__}")
-    if goodbye:
-        print(f"Goodbye {name}!")
+    if args.goodbye:
+        print(f"Goodbye {args.name}!")
