@@ -10,4 +10,5 @@ WORKDIR /app
 COPY . .
 
 RUN pip install --upgrade pip && \
+    pip install pydantic==2.10.6 prefect==3.1.15 && \
     pip install --no-deps -e .

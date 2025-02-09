@@ -16,6 +16,9 @@ push:
 pull:
 - prefect.deployments.steps.set_working_directory:
     directory: '/app'
+- prefect.deployments.steps.run_shell_script:
+    directory: '/app'
+    script: 'pip list'
 
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
