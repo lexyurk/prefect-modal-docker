@@ -20,8 +20,8 @@ def run_my_flow(param: str) -> None:
     do_print(param)
 
 
-@flow(log_prints=True)
-def main(args: MyModel):
+@flow(log_prints=True, name="test_flow")
+def test_flow(args: MyModel):
     print(f"Hello {args.name} from Prefect! 🤗")
     run_my_flow(args.name)
     print(f"pydantic version: {pydantic.__version__}")

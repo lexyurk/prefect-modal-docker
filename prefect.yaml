@@ -29,7 +29,7 @@ deployments:
   version:
   tags: []
   description: Our first flow which runs on modal
-  entrypoint: src/prefect_modal/flows/flow1.py:main
+  entrypoint: src/prefect_modal/flows/flow1.py:test_flow
   work_pool:
     name: my-modal-pool
     job_variables:
