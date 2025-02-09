@@ -1,4 +1,5 @@
 from prefect import flow, task
+import pydantic
 
 
 @task()
@@ -17,5 +18,6 @@ def run_my_flow(param: str) -> None:
 def main(name: str = "world", goodbye: bool = False):
     print(f"Hello {name} from Prefect! 🤗")
     run_my_flow(name)
+    print(f"pydantic version: {pydantic.__version__}")
     if goodbye:
         print(f"Goodbye {name}!")
