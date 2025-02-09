@@ -18,7 +18,7 @@ pull:
     directory: '/app'
 - prefect.deployments.steps.run_shell_script:
     directory: '/app'
-    script: 'pip install -r requirements.txt'
+    script: 'uv pip install -r requirements.txt'
 - prefect.deployments.steps.run_shell_script:
     directory: '/app'
     script: 'pip list'
