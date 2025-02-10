@@ -22,21 +22,7 @@ deployments:
   concurrency_limit:
   parameters: {}
 
-  build:
-    - prefect_docker.deployments.steps.build_docker_image:
-        id: build_image
-        image_name: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/flow
-        tag: ${{ github.sha }}
-        dockerfile: Dockerfile
-        platform: linux/amd64
-
-  push:
-    - prefect_docker.deployments.steps.push_docker_image:
-        image_name: "{{ build_image.image_name }}"
-        tag: "{{ build_image.tag }}"
   pull:
-  - prefect.deployments.steps.set_working_directory:
-      directory: '/app'
   - prefect.deployments.steps.run_shell_script:
       directory: '/app'
       script: |
@@ -46,6 +32,8 @@ deployments:
   - prefect.deployments.steps.run_shell_script:
       directory: '/app'
       script: 'uv pip list'
+  - prefect.deployments.steps.set_working_directory:
+      directory: '/app'
 
 - name: prefect-modal-example-no-docker
   version:
