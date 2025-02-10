@@ -56,7 +56,7 @@ deployments:
   pull:
   - prefect.deployments.steps.git_clone:
       id: clone-step
-      repository: https://github.com/lexyurk/prefect-modal
+      repository: https://github.com/lexyurk/prefect-modal-docker
       branch: main
       credentials: '{{ prefect.blocks.github-credentials.prefect-modal }}'
   - prefect.deployments.steps.run_shell_script:
