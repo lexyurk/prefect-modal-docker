@@ -25,6 +25,11 @@ deployments:
       image:
         tag: "{{ build_image.image_name }}:{{ build_image.tag }}"
         gcp_secret: gcp-secret
+      env_vars:
+        - name: PREFECT_SERVER_LOGGING_LEVEL
+          value: INFO
+        - name: PREFECT_LOGGING_LEVEL
+          value: INFO
   concurrency_limit:
   parameters: {}
 
