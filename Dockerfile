@@ -1,12 +1,14 @@
 FROM python:3.12-slim
 
+WORKDIR /opt/prefect
+
 RUN apt-get update && apt-get install -y \
     make \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-COPY . /app
+# Add environment variable for Prefect logging
+ENV PREFECT_SERVER_LOGGING_LEVEL=INFO
+ENV PREFECT_LOGGING_LEVEL=INFO
 
-RUN pip install --upgrade pip && \
-    pip install pydantic==2.10.6 prefect==3.1.15 && \
-    pip install --no-deps -e /app
+COPY . /app
