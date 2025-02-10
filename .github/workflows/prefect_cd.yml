@@ -56,6 +56,6 @@ jobs:
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
           IMAGE_NAME=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow
-          yq -i '.["deployments"][0]["build"][0]["prefect_docker.deployments.steps.build_docker_image"].image_name = "'$IMAGE_PATH'"' prefect.yaml
+          yq -i '.["deployments"][0]["build"][0]["prefect_docker.deployments.steps.build_docker_image"].image_name = "'$IMAGE_NAME'"' prefect.yaml
           yq -i '.["deployments"][0]["build"][0]["prefect_docker.deployments.steps.build_docker_image"].tag = "${{ github.sha }}"' prefect.yaml
           make prefect-deploy
