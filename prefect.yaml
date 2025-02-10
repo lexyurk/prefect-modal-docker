@@ -12,24 +12,13 @@ build:
 # push section allows you to manage if and how this project is uploaded to remote locations
 push:
 
-# pull section allows you to provide instructions for cloning this project in remote locations
-pull:
-- prefect.deployments.steps.set_working_directory:
-    directory: '/app'
-- prefect.deployments.steps.run_shell_script:
-    directory: '/app'
-    script: 'uv pip install -r requirements.txt'
-- prefect.deployments.steps.run_shell_script:
-    directory: '/app'
-    script: 'pip list'
-
 # the deployments section allows you to provide configuration for deploying flows
 deployments:
-- name: prefect-modal-no-pydantic
+- name: prefect-modal-docker
   version:
   tags: []
   description: Our first flow which runs on modal
-  entrypoint: src/prefect_modal/flows/flow2.py:test_flow_no_pydantic
+  entrypoint: prefect_modal/flows/flow2.py:test_flow_no_pydantic
   work_pool:
     name: my-modal-pool
     job_variables:
@@ -38,3 +27,43 @@ deployments:
         gcp_secret: gcp-secret
   concurrency_limit:
   parameters: {}
+
+  pull:
+  - prefect.deployments.steps.set_working_directory:
+      directory: '/app'
+  - prefect.deployments.steps.run_shell_script:
+      directory: '/app'
+      script: |
+          pip install --upgrade 'uv>=0.5.6,<0.6'
+          /bin/sh -c "uv export --no-dev --no-editable --no-hashes --locked > requirements.txt"
+          uv pip install --system -r requirements.txt
+  - prefect.deployments.steps.run_shell_script:
+      directory: '/app'
+      script: 'uv pip list'
+
+- name: prefect-modal-example-no-docker
+  version:
+  tags: []
+  description: Our first flow which runs on modal
+  entrypoint: prefect_modal/flows/flow1.py:main
+  work_pool:
+    name: my-modal-pool
+    work_queue_name: default
+    job_variables: {}
+  concurrency_limit:
+  parameters: {}
+
+  pull:
+  - prefect.deployments.steps.git_clone:
+      id: clone-step
+      repository: https://github.com/lexyurk/prefect-modal
+      branch: main
+      credentials: '{{ prefect.blocks.github-credentials.prefect-modal }}'
+  - prefect.deployments.steps.run_shell_script:
+      directory: '{{ clone-step.directory }}'
+      script: |
+          pip install --upgrade 'uv>=0.5.6,<0.6'
+          /bin/sh -c "uv export --no-dev --no-editable --no-hashes --locked > requirements.txt"
+          uv pip install --system -r requirements.txt
+  - prefect.deployments.steps.set_working_directory:
+      directory: '/{{ clone-step.directory }}'
