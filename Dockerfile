@@ -11,4 +11,4 @@ RUN apt-get update && apt-get install -y \
 ENV PREFECT_SERVER_LOGGING_LEVEL=INFO
 ENV PREFECT_LOGGING_LEVEL=INFO
 
-COPY . /app
+COPY . /prefect-modal

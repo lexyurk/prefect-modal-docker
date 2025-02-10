@@ -24,16 +24,16 @@ deployments:
 
   pull:
   - prefect.deployments.steps.run_shell_script:
-      directory: '/app'
+      directory: '/prefect-modal'
       script: |
           pip install --upgrade 'uv>=0.5.6,<0.6'
           /bin/sh -c "uv export --no-dev --no-editable --no-hashes --locked > requirements.txt"
           uv pip install --system -r requirements.txt
   - prefect.deployments.steps.run_shell_script:
-      directory: '/app'
+      directory: '/prefect-modal'
       script: 'uv pip list'
   - prefect.deployments.steps.set_working_directory:
-      directory: '/app'
+      directory: '/prefect-modal'
 
 - name: prefect-modal-example-no-docker
   version:
