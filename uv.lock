@@ -980,7 +980,7 @@ wheels = [
 
 [[package]]
 name = "modal"
-version = "0.73.24"
+version = "0.73.25"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -999,7 +999,7 @@ dependencies = [
     { name = "watchfiles" },
 ]
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/15/cc/7793c4e43321a4512886614822a26c211a95f46cfda98253ed69ceaaaacc/modal-0.73.24-py3-none-any.whl", hash = "sha256:4b0920ac9a6fde233004b63fdb50c28da4d4b3c3dd61d066d7ab77b619c24465", size = 532998 },
+    { url = "https://files.pythonhosted.org/packages/70/66/e518b02b0aa75421c65e2637347d021913961cf97f92273b4c313553d846/modal-0.73.25-py3-none-any.whl", hash = "sha256:7cb0f867a314b13fd5e2e629f27dcc40c8d4df432d007b7c10e9258d37646a6d", size = 532999 },
 ]
 
 [[package]]
@@ -1293,6 +1293,20 @@ github = [
 ]
 
 [[package]]
+name = "prefect-docker"
+version = "0.6.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "docker" },
+    { name = "exceptiongroup" },
+    { name = "prefect" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/77/fc/fcf64753a7b6373ad31669f0c0df928d51f8edbd3a6b56adbd1799153acf/prefect_docker-0.6.2.tar.gz", hash = "sha256:405cdf2b266c7e1ffcb61f5b80c710401bc2eb5f25dcbccc195b0e5c86f5a421", size = 33777 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/4e/55/6f81b38f6190779904d02179a5589d5d5b84c7167fbd8d7c5827dd584083/prefect_docker-0.6.2-py3-none-any.whl", hash = "sha256:bae500ff0c18e3e1c55f2e79ec154bc1f8c8329fbe6a3726052dfb0fe38d7d4c", size = 23661 },
+]
+
+[[package]]
 name = "prefect-github"
 version = "0.3.1"
 source = { registry = "https://pypi.org/simple" }
@@ -1312,6 +1326,7 @@ source = { editable = "." }
 dependencies = [
     { name = "modal" },
     { name = "prefect", extra = ["github"] },
+    { name = "prefect-docker" },
     { name = "pydantic" },
 ]
 
@@ -1319,6 +1334,7 @@ dependencies = [
 requires-dist = [
     { name = "modal", specifier = ">=0.73.16" },
     { name = "prefect", extras = ["github"], specifier = ">=3.1.15" },
+    { name = "prefect-docker", specifier = ">=0.3.1" },
     { name = "pydantic", specifier = ">=2.10.6" },
 ]
 
@@ -2072,15 +2088,15 @@ wheels = [
 
 [[package]]
 name = "synchronicity"
-version = "0.9.10"
+version = "0.9.11"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "sigtools" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/8e/75/65e997a028d3cc5465f0f67e547096269af30ada79ceb1ddf50863096d5b/synchronicity-0.9.10.tar.gz", hash = "sha256:7460a471190ba53c1ae3e15f9e51ed28d8bcc80df867194686ed28eaad5f19f2", size = 47965 }
+sdist = { url = "https://files.pythonhosted.org/packages/b5/52/f34a9ab6d514e0808d0f572affb360411d596b3439107318c00889277dd6/synchronicity-0.9.11.tar.gz", hash = "sha256:cb5dbbcb43d637e516ae50db05a776da51a705d1e1a9c0e301f6049afc3c2cae", size = 50323 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/11/ae/24452a9ac1a430a6aa368ae2410dd71d547d8e5c8ded8dda74935a4942af/synchronicity-0.9.10-py3-none-any.whl", hash = "sha256:5073064753961d930366520a4fb04d3b9acd98d6d6eba946374421a9e18ff042", size = 34936 },
+    { url = "https://files.pythonhosted.org/packages/f2/d5/7675cd9b8e18f05b9ea261acad5d197fcb8027d2a65b1a750427ec084593/synchronicity-0.9.11-py3-none-any.whl", hash = "sha256:231129654d2f56b1aa148e85ebd8545231be135771f6d2196d414175b1594ef6", size = 36827 },
 ]
 
 [[package]]

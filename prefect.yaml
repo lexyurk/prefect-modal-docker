@@ -25,7 +25,6 @@ deployments:
   build:
     - prefect_docker.deployments.steps.build_docker_image:
         id: build_image
-        requires: prefect-docker>=0.3.1
         image_name: ${{ env.REGION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/flow
         tag: ${{ github.sha }}
         dockerfile: Dockerfile
@@ -33,7 +32,6 @@ deployments:
 
   push:
     - prefect_docker.deployments.steps.push_docker_image:
-        requires: prefect-docker>=0.3.1
         image_name: "{{ build_image.image_name }}"
         tag: "{{ build_image.tag }}"
   pull:
