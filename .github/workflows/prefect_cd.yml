@@ -37,13 +37,13 @@ jobs:
         run: |
           gcloud auth configure-docker $REGION-docker.pkg.dev
 
-      - name: Build and Push Image
-        run: |
-          IMAGE_NAME=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow
-          docker build -t $IMAGE_NAME:${{ github.sha }} .
-          docker push $IMAGE_NAME:${{ github.sha }}
-          docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
-          docker push $IMAGE_NAME:latest
+      # - name: Build and Push Image
+      #   run: |
+      #     IMAGE_NAME=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow
+      #     docker build -t $IMAGE_NAME:${{ github.sha }} .
+      #     docker push $IMAGE_NAME:${{ github.sha }}
+      #     docker tag $IMAGE_NAME:${{ github.sha }} $IMAGE_NAME:latest
+      #     docker push $IMAGE_NAME:latest
    
       - name: Install yq
         run: |
@@ -56,5 +56,6 @@ jobs:
           PREFECT_API_URL: ${{ secrets.PREFECT_API_URL }}
         run: |
           IMAGE_NAME=$REGION-docker.pkg.dev/$PROJECT_ID/$REPOSITORY/flow
-          yq -i '.deployments[0].work_pool.job_variables.image.tag = "'$IMAGE_NAME:${{ github.sha }}'"' prefect.yaml
+          yq -i '.["deployments"][0]["build"][0]["prefect_docker.deployments.steps.build_docker_image"].image_name = "'$IMAGE_PATH'"' prefect.yaml
+          yq -i '.["deployments"][0]["build"][0]["prefect_docker.deployments.steps.build_docker_image"].tag = "${{ github.sha }}"' prefect.yaml
           make prefect-deploy
